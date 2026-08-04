@@ -1,5 +1,30 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- gotk-components.yaml
-- gotk-sync.yaml
+  # Komponenty Fluxa (domyślne)
+  - gotk-components.yaml
+  - gotk-sync.yaml
+
+  # Namespace
+  - home-automation-namespace.yaml
+
+  # Wolumeny (PVC)
+  - home-automation-Home_Assistant-PVC.yaml
+  - home-automation-Mosquitto-PVC.yaml
+  - home-automation-Zigbee-PVC.yaml
+
+  # ConfigMapy
+  - home-automation-Zigbee-configmap.yaml
+
+  # Wdrożenia (Deployments)
+  - home-automation-Home_Assistant-deployment.yaml
+  - home-automation-Mosquitto-deployment.yaml
+  - home-automation-Zigbee-deployment.yaml
+
+  # Usługi (Services)
+  - home-automation-Home_Assistant-service.yaml
+  - home-automation-Mosquitto-service.yaml
+  - home-automation-Zigbee-service.yaml
+
+  # Ingress ()
+  - home-automation-ingress.yaml
