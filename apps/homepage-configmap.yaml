@@ -5,38 +5,61 @@ metadata:
   namespace: homepage
 data:
   custom.css: |
-    /* Pogrubienie wszystkich tekstów */
+    /* 1. EFEKT CZARNEJ OBRAMÓWKI I BIAŁEGO ŚRODKA DLA WSZYSTKICH TEKSTÓW */
     * {
-      font-weight: 700 !important;
+      font-weight: 800 !important;
+      color: #ffffff !important; /* Biały środek czcionki */
+      -webkit-text-stroke: 1.2px #000000 !important; /* Czarna obramówka tekstowa */
+      text-shadow: 
+        1px  1px 0 #000,
+       -1px  1px 0 #000,
+        1px -1px 0 #000,
+       -1px -1px 0 #000 !important; /* Wypełnienie ewentualnych szpar w rysowaniu obrysu */
     }
 
-    /* Kafelki głównych usług i statystyk (białe) */
+    /* 2. KAFELKI GŁÓWNYCH USŁUG I WIDGETÓW (Białe z grubą czarną ramką) */
     .service-card, .widget-card, #search {
       background-color: rgba(255, 255, 255, 0.95) !important;
-      color: #000000 !important;
-      border: 2px solid #d1d5db !important;
+      border: 2px solid #000000 !important;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
 
-    /* 🌸 KAFELKI QUICK LINKS (Dedykowany różowy styl) 🌸 */
     .bookmark-card {
-      background-color: rgba(255, 228, 230, 0.95) !important; /* Pastelowy róż */
-      border: 2px solid #f43f5e !important;                  /* Wyrazista różowa ramka */
-      box-shadow: 0 4px 6px -1px rgba(244, 63, 94, 0.2);
+      background-color: rgba(255, 228, 230, 0.95) !important;
+      border: 2px solid #000000 !important;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
 
-    /* Teksty wewnątrz wszystkich kafelków */
-    .service-card *, .bookmark-card *, .widget-card *, #search * {
+    .widget-container {
+      background-color: #ffffff !important;
+      border: 2px solid #000000 !important;
+      border-radius: 12px !important;
+      padding: 6px 14px !important;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Ikony w statystykach */
+    .information-widget-resource svg {
       color: #000000 !important;
+      stroke: #000000 !important;
+      fill: none !important;
     }
 
-    /* Nagłówki sekcji */
+    /* Paski zużycia zasobów */
+    .resource-usage {
+      background-color: #e5e7eb !important;
+      border: 1px solid #000000 !important;
+    }
+    .resource-usage > div {
+      background-color: #000000 !important;
+    }
+
+    /* Tło pod nagłówkami sekcji */
     .group-title, h2, h3 {
-      color: #000000 !important;
-      text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.9);
-      background-color: rgba(255, 255, 255, 0.85);
-      padding: 2px 8px;
-      border-radius: 6px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 2px solid #000000;
+      padding: 2px 10px;
+      border-radius: 8px;
       display: inline-block;
     }
 
