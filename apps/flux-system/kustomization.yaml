@@ -32,3 +32,6 @@ resources:
   # Tailscale
   - tailscale-namespace.yaml
   - tailscale-operator.yaml
+
+  # Pihole
+  - pihole-namespace.yaml
