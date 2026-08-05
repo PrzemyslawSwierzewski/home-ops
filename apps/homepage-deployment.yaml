@@ -15,17 +15,33 @@ spec:
       labels:
         app: homepage
     spec:
+      # Kontener inicjalizacyjny kopiuje pliki z ConfigMapy do zapisywalnego wolumenu emptyDir
+      initContainers:
+        - name: copy-configs
+          image: busybox:1.36
+          imagePullPolicy: IfNotPresent
+          command: ['sh', '-c', 'cp /config-source/* /app/config/ || true']
+          volumeMounts:
+            - name: config-source
+              mountPath: /config-source
+            - name: config-writable
+              mountPath: /app/config
       containers:
         - name: homepage
           image: ghcr.io/gethomepage/homepage:latest
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: HOMEPAGE_ALLOWED_HOSTS
+              value: "*"
           ports:
             - name: http
               containerPort: 3000
           volumeMounts:
-            - name: homepage-config
+            - name: config-writable
               mountPath: /app/config
       volumes:
-        - name: homepage-config
+        - name: config-source
           configMap:
             name: homepage-config
+        - name: config-writable
+          emptyDir: {}
