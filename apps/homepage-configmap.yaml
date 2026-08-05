@@ -131,6 +131,36 @@ data:
               abbr: GG
               href: https://www.google.com/
               icon: google.svg
+        - FitGirl:
+            - title: FitGirl Repacks
+              abbr: FG
+              href: https://fitgirl-repacks.site/
+              icon: fitgirl.svg
+        - Linkedin:
+            - title: LinkedIn
+              abbr: LI
+              href: https://www.linkedin.com/
+              icon: linkedin.svg
+        - EXT torrents:
+            - title: EXT torrents
+              abbr: EXT
+              href: https://ext-torrents.org/
+              icon: ext.svg
+        - 💸 Tracking spłat długów Dorotki 👩🏻‍💻 - Arkusze Google:
+            - title: Tracking spłat długów Dorotki 👩🏻‍💻
+              abbr: DOROTKA
+              href: https://docs.google.com/spreadsheets/d/1-UX2R16oNa9jFLVFenW6rgmbNmSpNkTXg4c8X4k03H8/edit?gid=0#gid=0
+              icon: google-sheets.svg
+        - youtube music:
+            - title: YouTube Music
+              abbr: YTM
+              href: https://music.youtube.com/
+              icon: youtube-music.svg
+        - gmail:
+            - title: Gmail
+              abbr: GM
+              href: https://mail.google.com/mail/u/0/#inbox
+              icon: gmail.svg
 
   widgets.yaml: |
     - resources:
