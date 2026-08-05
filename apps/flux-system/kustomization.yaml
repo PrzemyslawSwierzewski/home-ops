@@ -28,3 +28,7 @@ resources:
 
   # Ingress ()
   - home-automation-ingress.yaml
+
+  # Tailscale
+  - tailscale-namespace.yaml
+  - tailscale-operator.yaml
