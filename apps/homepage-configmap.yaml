@@ -4,27 +4,33 @@ metadata:
   name: homepage-config
   namespace: homepage
 data:
-  # Dopracowane style CSS dla bardzo jasnych teł
   custom.css: |
     /* Pogrubienie wszystkich tekstów */
     * {
       font-weight: 700 !important;
     }
 
-    /* Wyraźne, białe kafelki usług i statystyk */
-    .service-card, .bookmark-card, .widget-card, #search {
+    /* Kafelki głównych usług i statystyk (białe) */
+    .service-card, .widget-card, #search {
       background-color: rgba(255, 255, 255, 0.95) !important;
       color: #000000 !important;
       border: 2px solid #d1d5db !important;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
 
-    /* Wymuszenie czarnego koloru czcionki we wszystkich elementach wewnątrz kafelków */
+    /* 🌸 KAFELKI QUICK LINKS (Dedykowany różowy styl) 🌸 */
+    .bookmark-card {
+      background-color: rgba(255, 228, 230, 0.95) !important; /* Pastelowy róż */
+      border: 2px solid #f43f5e !important;                  /* Wyrazista różowa ramka */
+      box-shadow: 0 4px 6px -1px rgba(244, 63, 94, 0.2);
+    }
+
+    /* Teksty wewnątrz wszystkich kafelków */
     .service-card *, .bookmark-card *, .widget-card *, #search * {
       color: #000000 !important;
     }
 
-    /* Poprawa widoczności etykiet sekcji i zakładek */
+    /* Nagłówki sekcji */
     .group-title, h2, h3 {
       color: #000000 !important;
       text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.9);
@@ -68,7 +74,6 @@ data:
             description: Narzędzie do edycji i konwersji PDF
             ping: https://stirling-pdf-stirling-pdf-ingress-ingress.tail318b16.ts.net
 
-  # Przekształcone bookmarks w czytelne ikony ze słownym opisem
   bookmarks.yaml: |
     - Quick Links:
         - GitHub:
