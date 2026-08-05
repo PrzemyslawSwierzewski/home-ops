@@ -4,24 +4,36 @@ metadata:
   name: homepage-config
   namespace: homepage
 data:
-  # Własny CSS: pogrubienie WSZYSTKICH tekstów + pełne, białe kafelki
+  # Dopracowane style CSS dla bardzo jasnych teł
   custom.css: |
-    /* Pogrubienie wszystkich tekstów w całej aplikacji */
+    /* Pogrubienie wszystkich tekstów */
     * {
       font-weight: 700 !important;
     }
 
-    /* Solidne, białe kafelki z czarnym tekstem */
-    .service-card, .bookmark-card, .widget-card {
+    /* Wyraźne, białe kafelki usług i statystyk */
+    .service-card, .bookmark-card, .widget-card, #search {
       background-color: rgba(255, 255, 255, 0.95) !important;
       color: #000000 !important;
-      border: 1px solid #e5e7eb !important;
+      border: 2px solid #d1d5db !important;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
-    .service-card *, .bookmark-card * {
+
+    /* Wymuszenie czarnego koloru czcionki we wszystkich elementach wewnątrz kafelków */
+    .service-card *, .bookmark-card *, .widget-card *, #search * {
       color: #000000 !important;
     }
 
-  # Konfiguracja ogólna
+    /* Poprawa widoczności etykiet sekcji i zakładek */
+    .group-title, h2, h3 {
+      color: #000000 !important;
+      text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.9);
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 2px 8px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+
   settings.yaml: |
     title: Hello Kitty Dashboard 🎀
     background: https://i.pinimg.com/1200x/e8/15/2a/e8152a5d0516df591415ee0eba5d29d8.jpg
@@ -29,7 +41,6 @@ data:
     color: slate
     showStats: true
 
-  # Układ grup na ekranie
   services.yaml: |
     - Home Automation:
         - Home Assistant:
@@ -57,19 +68,24 @@ data:
             description: Narzędzie do edycji i konwersji PDF
             ping: https://stirling-pdf-stirling-pdf-ingress-ingress.tail318b16.ts.net
 
+  # Przekształcone bookmarks w czytelne ikony ze słownym opisem
   bookmarks.yaml: |
-    - Developer:
+    - Quick Links:
         - GitHub:
-            - abbr: PR
+            - title: GitHub Repos
+              abbr: GH
               href: https://github.com/PrzemyslawSwierzewski/home-ops/tree/main
-    - Youtube:
-        - Youtube:
-            - abbr: YT
+              icon: github.svg
+        - YouTube:
+            - title: YouTube
+              abbr: YT
               href: https://www.youtube.com/
-    - Google:
+              icon: youtube.svg
         - Google:
-            - abbr: GE
+            - title: Wyszukiwarka Google
+              abbr: GG
               href: https://www.google.com/
+              icon: google.svg
 
   widgets.yaml: |
     - resources:
