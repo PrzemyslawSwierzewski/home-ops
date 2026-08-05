@@ -4,7 +4,14 @@ metadata:
   name: homepage-config
   namespace: homepage
 data:
+  # Własny CSS: pogrubienie WSZYSTKICH tekstów + pełne, białe kafelki
   custom.css: |
+    /* Pogrubienie wszystkich tekstów w całej aplikacji */
+    * {
+      font-weight: 700 !important;
+    }
+
+    /* Solidne, białe kafelki z czarnym tekstem */
     .service-card, .bookmark-card, .widget-card {
       background-color: rgba(255, 255, 255, 0.95) !important;
       color: #000000 !important;
@@ -13,11 +20,11 @@ data:
     .service-card *, .bookmark-card * {
       color: #000000 !important;
     }
-  # Konfiguracja wyglądu i ustawień ogólnych
+
+  # Konfiguracja ogólna
   settings.yaml: |
-    title: Home Server Dashboard
+    title: Hello Kitty Dashboard 🎀
     background: https://i.pinimg.com/1200x/e8/15/2a/e8152a5d0516df591415ee0eba5d29d8.jpg
-    cardBlur: xl
     theme: light
     color: slate
     showStats: true
@@ -50,7 +57,6 @@ data:
             description: Narzędzie do edycji i konwersji PDF
             ping: https://stirling-pdf-stirling-pdf-ingress-ingress.tail318b16.ts.net
 
-  # Dodatkowe zakłaki/przydatne linki (opcjonalnie)
   bookmarks.yaml: |
     - Developer:
         - GitHub:
@@ -65,8 +71,6 @@ data:
             - abbr: GE
               href: https://www.google.com/
 
-
-  # Widgety na samej górze strony (zegar, wykorzystanie zasobów)
   widgets.yaml: |
     - resources:
         cpu: true
