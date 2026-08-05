@@ -30,9 +30,9 @@ data:
     - Network & Infrastructure:
         - Pi-hole:
             icon: pi-hole.svg
-            href: https://pihole.tail318b16.ts.net
+            href: https://pihole.tail318b16.ts.net/admin/
             description: Blokowanie reklam i serwer DNS
-            ping: https://pihole.tail318b16.ts.net
+            ping: https://pihole.tail318b16.ts.net/admin/
 
   # Dodatkowe zakłaki/przydatne linki (opcjonalnie)
   bookmarks.yaml: |
