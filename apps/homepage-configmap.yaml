@@ -4,6 +4,15 @@ metadata:
   name: homepage-config
   namespace: homepage
 data:
+  custom.css: |
+    .service-card, .bookmark-card, .widget-card {
+      background-color: rgba(255, 255, 255, 0.95) !important;
+      color: #000000 !important;
+      border: 1px solid #e5e7eb !important;
+    }
+    .service-card *, .bookmark-card * {
+      color: #000000 !important;
+    }
   # Konfiguracja wyglądu i ustawień ogólnych
   settings.yaml: |
     title: Home Server Dashboard
