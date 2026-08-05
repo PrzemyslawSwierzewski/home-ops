@@ -18,13 +18,25 @@ data:
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
 
-    /* 🌸 STYLIZACJA QUICK LINKS (Dla całego kontenera oraz pojedynczych pasów) 🌸 */
-    .bookmark-container, .bookmark-group, .bookmark {
+    /* 🌸 DUŻA CZARNA RAMKA TYLKO DOOkoła CAŁEJ GRUPY QUICK LINKS 🌸 */
+    .bookmark-container, .bookmark-group {
       background-color: rgba(255, 255, 255, 0.95) !important;
-      color: #000000 !important;
       border: 2px solid #000000 !important;
-      border-radius: 10px !important;
+      border-radius: 12px !important;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    /* ❌ USUNIĘCIE OBRĘCZY / RAMKI Z POJEDYNCZYCH LINKÓW (GitHub, YouTube, Google) ❌ */
+    .bookmark {
+      border: none !important;
+      background-color: transparent !important;
+      box-shadow: none !important;
+    }
+
+    /* Czarny kolor tekstów i ikon w zakładkach */
+    .bookmark-container *, .bookmark-group * {
+      color: #000000 !important;
     }
 
     /* 📊 WIDGET STATYSTYK 📊 */
@@ -49,7 +61,7 @@ data:
       fill: none !important;
     }
 
-    /* Stylizacja pasków zużycia zasobów */
+    /* Paski zużycia zasobów */
     .resource-usage {
       background-color: #e5e7eb !important;
     }
@@ -57,7 +69,7 @@ data:
       background-color: #000000 !important;
     }
 
-    /* Nagłówki sekcji (Home Automation, Quick Links itp.) */
+    /* Nagłówki sekcji */
     .group-title, h2, h3 {
       color: #000000 !important;
       text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.9);
