@@ -7,10 +7,10 @@ data:
   # Konfiguracja wyglądu i ustawień ogólnych
   settings.yaml: |
     title: Home Server Dashboard
-    background: https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070
+    background: https://images7.alphacoders.com/133/1338787.png
     cardBlur: sm
     theme: dark
-    color: slate
+    color: pink
     showStats: true
 
   # Układ grup na ekranie
