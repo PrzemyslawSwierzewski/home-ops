@@ -135,7 +135,7 @@ data:
             - title: FitGirl Repacks
               abbr: FG
               href: https://fitgirl-repacks.site/
-              icon: fitgirl.svg
+              icon: utorrent.svg
         - Linkedin:
             - title: LinkedIn
               abbr: LI
@@ -145,7 +145,7 @@ data:
             - title: EXT torrents
               abbr: EXT
               href: https://ext-torrents.org/
-              icon: ext.svg
+              icon: utorrent.svg
         - 💸 Tracking spłat długów Dorotki 👩🏻‍💻 - Arkusze Google:
             - title: Tracking spłat długów Dorotki 👩🏻‍💻
               abbr: DOROTKA
