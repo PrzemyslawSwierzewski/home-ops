@@ -37,3 +37,4 @@ resources:
   - pihole-namespace.yaml
   - pihole-service.yaml
   - pihole-deployment.yaml
+  - pihole-ingress.yaml
