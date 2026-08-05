@@ -156,6 +156,11 @@ data:
               abbr: GM
               href: https://mail.google.com/mail/u/0/#inbox
               icon: gmail.svg
+        - allegro:
+            - title: Allegro
+              abbr: ALLEGRO
+              href: https://allegro.pl/
+              icon: allegro.svg
 
   widgets.yaml: |
     - resources:
