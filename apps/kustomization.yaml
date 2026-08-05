@@ -27,7 +27,7 @@ resources:
   - home-automation-Zigbee-service.yaml
 
   # Ingress ()
-  - home-automation-ingress.yaml
+  - home-automation-Home_Assistant-ingress.yaml
 
   # Tailscale
   - tailscale-namespace.yaml
