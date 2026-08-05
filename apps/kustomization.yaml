@@ -30,3 +30,10 @@ resources:
   - pihole-deployment.yaml
   - pihole-ingress.yaml
   - pihole-PVC.yaml
+
+  #Homepage
+  - homepage-configmap.yaml
+  - homepage-namespace.yaml
+  - homepage-deployment.yaml
+  - homepage-service.yaml
+  - homepage-ingress.yaml
