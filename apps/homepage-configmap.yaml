@@ -7,7 +7,7 @@ data:
   # Konfiguracja wyglądu i ustawień ogólnych
   settings.yaml: |
     title: Home Server Dashboard
-    background: https://i.imgur.com/cFN59Lb.jpeg
+    background: https://i.imgur.com/zDetTWl.png
     cardBlur: sm
     theme: dark
     color: pink
