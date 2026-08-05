@@ -16,6 +16,7 @@ spec:
       containers:
       - name: mosquitto
         image: eclipse-mosquitto:latest
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 1883
           name: mqtt
