@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage-config
+  namespace: homepage
+data:
+  # Konfiguracja wyglądu i ustawień ogólnych
+  settings.yaml: |
+    title: Home Server Dashboard
+    background: https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070
+    cardBlur: sm
+    theme: dark
+    color: slate
+    showStats: true
+
+  # Układ grup na ekranie
+  services.yaml: |
+    - Home Automation:
+        - Home Assistant:
+            icon: home-assistant.svg
+            href: https://homeassistant.tail318b16.ts.net
+            description: Zarządzanie domem i automatyzacja
+            ping: https://homeassistant.tail318b16.ts.net
+        - Zigbee2MQTT:
+            icon: zigbee2mqtt.svg
+            href: https://home-automation-zigbee2mqtt-ingress-ingress.tail318b16.ts.net
+            description: Mostek urządzeń Zigbee
+            ping: https://home-automation-zigbee2mqtt-ingress-ingress.tail318b16.ts.net
+
+    - Network & Infrastructure:
+        - Pi-hole:
+            icon: pi-hole.svg
+            href: https://pihole.tail318b16.ts.net
+            description: Blokowanie reklam i serwer DNS
+            ping: https://pihole.tail318b16.ts.net
+
+  # Dodatkowe zakłaki/przydatne linki (opcjonalnie)
+  bookmarks.yaml: |
+    - Developer:
+        - GitHub:
+            - abbr: GH
+              href: https://github.com/
+
+  # Widgety na samej górze strony (zegar, wykorzystanie zasobów)
+  widgets.yaml: |
+    - resources:
+        cpu: true
+        memory: true
+        disk: /
+    - search:
+        provider: google
+        target: _blank
