@@ -34,6 +34,13 @@ data:
             description: Blokowanie reklam i serwer DNS
             ping: https://pihole.tail318b16.ts.net/admin/
 
+    - Tools & Utilities:
+        - Stirling-PDF:
+            icon: stirling-pdf.svg
+            href: https://stirling-pdf-stirling-pdf-ingress-ingress.tail318b16.ts.net
+            description: Narzędzie do edycji i konwersji PDF
+            ping: https://stirling-pdf-stirling-pdf-ingress-ingress.tail318b16.ts.net
+
   # Dodatkowe zakłaki/przydatne linki (opcjonalnie)
   bookmarks.yaml: |
     - Developer:
