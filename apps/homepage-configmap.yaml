@@ -5,21 +5,15 @@ metadata:
   namespace: homepage
 data:
   custom.css: |
-    /* 1. EFEKT CZARNEJ OBRAMÓWKI I BIAŁEGO ŚRODKA DLA WSZYSTKICH TEKSTÓW */
+    /* Pogrubienie wszystkich tekstów */
     * {
-      font-weight: 800 !important;
-      color: #ffffff !important; /* Biały środek czcionki */
-      -webkit-text-stroke: 1.2px #000000 !important; /* Czarna obramówka tekstowa */
-      text-shadow: 
-        1px  1px 0 #000,
-       -1px  1px 0 #000,
-        1px -1px 0 #000,
-       -1px -1px 0 #000 !important; /* Wypełnienie ewentualnych szpar w rysowaniu obrysu */
+      font-weight: 700 !important;
     }
 
-    /* 2. KAFELKI GŁÓWNYCH USŁUG I WIDGETÓW (Białe z grubą czarną ramką) */
+    /* Kafelki głównych usług i szukajki (białe z czarną ramką) */
     .service-card, .widget-card, #search {
       background-color: rgba(255, 255, 255, 0.95) !important;
+      color: #000000 !important;
       border: 2px solid #000000 !important;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
@@ -38,28 +32,35 @@ data:
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
 
-    /* Ikony w statystykach */
+    /* Czarny kolor tekstu i ikonek w statystykach */
+    .widget-container, 
+    .information-widget-resource,
+    .information-widget-resource * {
+      color: #000000 !important;
+    }
+
     .information-widget-resource svg {
       color: #000000 !important;
       stroke: #000000 !important;
       fill: none !important;
     }
 
-    /* Paski zużycia zasobów */
+    /* Stylizacja pasków zużycia zasobów (tło szare, pasek postępu czarny) */
     .resource-usage {
-      background-color: #e5e7eb !important;
-      border: 1px solid #000000 !important;
+      background-color: #e5e7eb !important; /* tło paska */
     }
     .resource-usage > div {
-      background-color: #000000 !important;
+      background-color: #000000 !important; /* wypełnienie paska */
     }
 
-    /* Tło pod nagłówkami sekcji */
+    /* Nagłówki sekcji */
     .group-title, h2, h3 {
+      color: #000000 !important;
+      text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.9);
       background-color: rgba(255, 255, 255, 0.9);
-      border: 2px solid #000000;
-      padding: 2px 10px;
-      border-radius: 8px;
+      border: 1px solid #000000;
+      padding: 2px 8px;
+      border-radius: 6px;
       display: inline-block;
     }
 
