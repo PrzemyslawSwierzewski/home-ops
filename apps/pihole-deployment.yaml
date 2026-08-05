@@ -40,3 +40,14 @@ spec:
         - containerPort: 80
           name: http
           protocol: TCP
+        volumeMounts:
+        - name: pihole-data
+          mountPath: /etc/pihole
+          subPath: etc-pihole
+        - name: pihole-data
+          mountPath: /etc/dnsmasq.d
+          subPath: etc-dnsmasq
+      volumes:
+      - name: pihole-data
+        persistentVolumeClaim:
+          claimName: pihole-pvc
