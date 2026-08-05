@@ -135,17 +135,12 @@ data:
             - title: FitGirl Repacks
               abbr: FG
               href: https://fitgirl-repacks.site/
-              icon: utorrent.svg
+              icon: https://www.google.com/s2/favicons?domain=fitgirl-repacks.site&sz=128
         - Linkedin:
             - title: LinkedIn
               abbr: LI
               href: https://www.linkedin.com/
               icon: linkedin.svg
-        - EXT torrents:
-            - title: EXT torrents
-              abbr: EXT
-              href: https://ext-torrents.org/
-              icon: utorrent.svg
         - 💸 Arkusz Google Dorotki:
             - title: Arkusz Google Dorotki 👩🏻‍💻
               abbr: DOROTKA
