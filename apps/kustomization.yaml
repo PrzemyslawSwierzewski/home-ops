@@ -35,3 +35,5 @@ resources:
 
   # Pihole
   - pihole-namespace.yaml
+  - pihole-service.yaml
+  - pihole-deployment.yaml
