@@ -13,10 +13,10 @@ spec:
       labels:
         app: zigbee2mqtt
     spec:
-      # Krok inicjalizacyjny: kopiuje konfigurację tak, aby Zigbee2MQTT mógł w niej pisać
       initContainers:
       - name: init-config
         image: busybox:latest
+        imagePullPolicy: IfNotPresent
         command: ['sh', '-c', 'cp /tmp/config/configuration.yaml /app/data/configuration.yaml']
         volumeMounts:
         - name: config-template
@@ -26,6 +26,7 @@ spec:
       containers:
       - name: zigbee2mqtt
         image: koenkk/zigbee2mqtt:latest
+        imagePullPolicy: IfNotPresent
         env:
         - name: TZ
           value: "Europe/Warsaw"

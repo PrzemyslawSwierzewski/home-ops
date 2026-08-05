@@ -18,6 +18,7 @@ spec:
       containers:
       - name: pihole
         image: pihole/pihole:latest
+        imagePullPolicy: IfNotPresent
         env:
         - name: TZ
           value: "Europe/Warsaw"
