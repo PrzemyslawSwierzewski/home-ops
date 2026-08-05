@@ -37,3 +37,9 @@ resources:
   - homepage-deployment.yaml
   - homepage-service.yaml
   - homepage-ingress.yaml
+
+  # Stirling PDF
+  - stirling-pdf-namespace.yaml
+  - stirling-pdf-deployment.yaml
+  - stirling-pdf-service.yaml
+  - stirling-pdf-ingress.yaml
