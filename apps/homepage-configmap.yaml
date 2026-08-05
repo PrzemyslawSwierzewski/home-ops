@@ -18,12 +18,16 @@ data:
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
 
-    .bookmark-card {
-      background-color: rgba(255, 228, 230, 0.95) !important;
+    /* 🌸 STYLIZACJA QUICK LINKS (Dla całego kontenera oraz pojedynczych pasów) 🌸 */
+    .bookmark-container, .bookmark-group, .bookmark {
+      background-color: rgba(255, 255, 255, 0.95) !important;
+      color: #000000 !important;
       border: 2px solid #000000 !important;
+      border-radius: 10px !important;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
 
+    /* 📊 WIDGET STATYSTYK 📊 */
     .widget-container {
       background-color: #ffffff !important;
       border: 2px solid #000000 !important;
@@ -45,15 +49,15 @@ data:
       fill: none !important;
     }
 
-    /* Stylizacja pasków zużycia zasobów (tło szare, pasek postępu czarny) */
+    /* Stylizacja pasków zużycia zasobów */
     .resource-usage {
-      background-color: #e5e7eb !important; /* tło paska */
+      background-color: #e5e7eb !important;
     }
     .resource-usage > div {
-      background-color: #000000 !important; /* wypełnienie paska */
+      background-color: #000000 !important;
     }
 
-    /* Nagłówki sekcji */
+    /* Nagłówki sekcji (Home Automation, Quick Links itp.) */
     .group-title, h2, h3 {
       color: #000000 !important;
       text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.9);
