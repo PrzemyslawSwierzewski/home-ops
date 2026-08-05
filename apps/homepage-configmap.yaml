@@ -9,8 +9,8 @@ data:
     title: Home Server Dashboard
     background: https://i.pinimg.com/1200x/e8/15/2a/e8152a5d0516df591415ee0eba5d29d8.jpg
     cardBlur: xl
-    theme: dark
-    color: zinc
+    theme: light
+    color: slate
     showStats: true
 
   # Układ grup na ekranie
