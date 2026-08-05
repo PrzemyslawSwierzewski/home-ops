@@ -3,9 +3,6 @@ kind: Service
 metadata:
   name: pihole-service
   namespace: pihole
-  annotations:
-    tailscale.com/expose: "true"
-    tailscale.com/hostname: "pihole-dns"
 spec:
   type: ClusterIP
   selector:

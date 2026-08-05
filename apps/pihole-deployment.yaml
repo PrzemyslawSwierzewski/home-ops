@@ -23,11 +23,11 @@ spec:
           value: "0.0.0.0"
         - name: DNSMASQ_LISTENING
           value: "all"
-        - name: WEBPASSWORD
+        - name: FTLCONF_webserver_api_password
           valueFrom:
             secretKeyRef:
               name: pihole-secret
-              key: WEBPASSWORD
+              key: FTLCONF_webserver_api_password
         ports:
         - containerPort: 53
           name: dns-udp

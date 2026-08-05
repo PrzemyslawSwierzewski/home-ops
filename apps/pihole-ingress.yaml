@@ -1,15 +1,15 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: homeassistant-ingress
-  namespace: home-automation
+  name: pihole-ingress
+  namespace: pihole
   annotations:
     tailscale.com/expose: "true"
 spec:
   ingressClassName: tailscale
   tls:
   - hosts:
-    - homeassistant
+    - pihole
   rules:
   - http:
       paths:
@@ -17,6 +17,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: homeassistant
+            name: pihole-service
             port:
-              number: 8123
+              number: 80
