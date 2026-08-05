@@ -160,7 +160,7 @@ data:
             - title: Allegro
               abbr: ALLEGRO
               href: https://allegro.pl/
-              icon: allegro.svg
+              icon: https://www.google.com/s2/favicons?domain=allegro.pl&sz=128
 
   widgets.yaml: |
     - resources:
