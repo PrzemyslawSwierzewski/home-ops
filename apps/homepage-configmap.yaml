@@ -7,7 +7,7 @@ data:
   # Konfiguracja wyglądu i ustawień ogólnych
   settings.yaml: |
     title: Home Server Dashboard
-    background: https://i.imgur.com/zDetTWl.png
+    background: https://i.pinimg.com/1200x/e8/15/2a/e8152a5d0516df591415ee0eba5d29d8.jpg
     cardBlur: sm
     theme: dark
     color: pink
@@ -45,8 +45,17 @@ data:
   bookmarks.yaml: |
     - Developer:
         - GitHub:
-            - abbr: GH
-              href: https://github.com/
+            - abbr: Whole project on a github
+              href: https://github.com/PrzemyslawSwierzewski/home-ops/tree/main
+    - Youtube:
+        - Youtube:
+            - abbr: Youtube
+              href: https://www.youtube.com/
+    - Google:
+        - Google:
+            - abbr: Google
+              href: https://www.google.com/
+    
 
   # Widgety na samej górze strony (zegar, wykorzystanie zasobów)
   widgets.yaml: |
