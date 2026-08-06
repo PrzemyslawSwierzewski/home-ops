@@ -5,6 +5,9 @@ resources:
   - flux-system/gotk-components.yaml
   - flux-system/gotk-sync.yaml
 
+  # Priority Classes - dla zarządzania zasobami na single-node klastrze
+  - priority-classes.yaml
+
   # Home assistant
   - namespace.yaml
   - home_Assistant-PVC.yaml
@@ -31,8 +34,7 @@ resources:
   - pihole-ingress.yaml
   - pihole-PVC.yaml
 
-  #Homepage
-  - homepage-configmap.yaml
+  # Homepage - ConfigMap generowana z configMapGenerator
   - homepage-namespace.yaml
   - homepage-deployment.yaml
   - homepage-service.yaml
@@ -43,3 +45,37 @@ resources:
   - stirling-pdf-deployment.yaml
   - stirling-pdf-service.yaml
   - stirling-pdf-ingress.yaml
+
+  # Backup na Azure
+  - backup-namespace.yaml
+  - backup-serviceaccount.yaml
+  - backup-cronjob.yaml
+  # backup-secret-template.yaml nie jest aplikowana - to template
+  # Gdy będziesz gotów, szyfruj i dodaj do resources
+
+# ConfigMap dla homepage będzie generowana z plików (configMapGenerator)
+# zamiast trzymana ręcznie - pozwoli Flux automatycznie wyzwolić rollout
+# przy każdej zmianie konfiguracji
+configMapGenerator:
+  - name: homepage-config
+    namespace: homepage
+    files:
+      - config/settings.yaml
+      - config/services.yaml
+      - config/bookmarks.yaml
+      - config/widgets.yaml
+      - config/custom.css
+    # Dodaj hash ConfigMapy do nazwy - wymusza rollout poda
+    behavior: create
+
+# Uogólniaj zmianę hash ConfigMapy na todas w deploymentach
+# aby urlinkować zmiany konfiguracji do restartów podów
+# (Flux automatycznie robi update na wartości w secretach/configmapach)
+vars:
+  - name: HOMEPAGE_CONFIG_CHECKSUM
+    objref:
+      kind: ConfigMap
+      name: homepage-config
+      apiVersion: v1
+    fieldref:
+      fieldpath: metadata.uid

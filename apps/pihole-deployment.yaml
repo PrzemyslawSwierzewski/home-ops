@@ -15,9 +15,11 @@ spec:
       labels:
         app: pihole
     spec:
+      # DNS dla całej sieci domowej - musi przetrwać presję pamięciową na node
+      priorityClassName: home-critical
       containers:
       - name: pihole
-        image: pihole/pihole:latest
+        image: pihole/pihole:2026.07.2
         imagePullPolicy: IfNotPresent
         env:
         - name: TZ
@@ -41,6 +43,39 @@ spec:
         - containerPort: 80
           name: http
           protocol: TCP
+        # Odwzorowanie oficjalnego HEALTHCHECK z obrazu - sprawdza realne
+        # rozwiązywanie nazw, a nie tylko czy proces żyje.
+        startupProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - dig -p $(pihole-FTL --config dns.port) +short +norecurse +retry=0 @127.0.0.1 pi.hole
+          periodSeconds: 5
+          failureThreshold: 30
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - dig -p $(pihole-FTL --config dns.port) +short +norecurse +retry=0 @127.0.0.1 pi.hole
+          periodSeconds: 15
+          timeoutSeconds: 5
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - dig -p $(pihole-FTL --config dns.port) +short +norecurse +retry=0 @127.0.0.1 pi.hole
+          periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 5
+        resources:
+          requests:
+            cpu: 50m
+            memory: 128Mi
+          limits:
+            memory: 512Mi
         volumeMounts:
         - name: pihole-data
           mountPath: /etc/pihole

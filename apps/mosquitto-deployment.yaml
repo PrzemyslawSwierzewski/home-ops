@@ -5,6 +5,9 @@ metadata:
   namespace: home-automation
 spec:
   replicas: 1
+  # PVC jest ReadWriteOnce - RollingUpdate zakleszczyłby się na montowaniu wolumenu
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: mosquitto
@@ -13,13 +16,20 @@ spec:
       labels:
         app: mosquitto
     spec:
+      priorityClassName: home-important
       containers:
       - name: mosquitto
-        image: eclipse-mosquitto:latest
+        image: eclipse-mosquitto:2.1.2
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 1883
           name: mqtt
+        resources:
+          requests:
+            cpu: 10m
+            memory: 32Mi
+          limits:
+            memory: 128Mi
         volumeMounts:
         - mountPath: /mosquitto/data
           name: mosquitto-storage

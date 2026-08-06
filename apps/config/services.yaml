@@ -1,0 +1,25 @@
+- Home Automation:
+    - Home Assistant:
+        icon: home-assistant.svg
+        href: https://homeassistant.tail318b16.ts.net
+        description: Zarządzanie domem i automatyzacja
+        ping: https://homeassistant.tail318b16.ts.net
+    - Zigbee2MQTT:
+        icon: zigbee2mqtt.svg
+        href: https://home-automation-zigbee2mqtt-ingress-ingress.tail318b16.ts.net
+        description: Mostek urządzeń Zigbee
+        ping: https://home-automation-zigbee2mqtt-ingress-ingress.tail318b16.ts.net
+
+- Network & Infrastructure:
+    - Pi-hole:
+        icon: pi-hole.svg
+        href: https://pihole.tail318b16.ts.net/admin/
+        description: Blokowanie reklam i serwer DNS
+        ping: https://pihole.tail318b16.ts.net/admin/
+
+- Tools & Utilities:
+    - Stirling-PDF:
+        icon: stirling-pdf.svg
+        href: https://stirling-pdf-stirling-pdf-ingress-ingress.tail318b16.ts.net
+        description: Narzędzie do edycji i konwersji PDF
+        ping: https://stirling-pdf-stirling-pdf-ingress-ingress.tail318b16.ts.net

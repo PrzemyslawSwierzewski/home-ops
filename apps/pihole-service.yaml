@@ -5,6 +5,9 @@ metadata:
   namespace: pihole
 spec:
   type: LoadBalancer
+  # Local traffic policy zachowuje source IP klienta dla Pi-hole
+  # Pozwala na filtrowanie per-device zamiast per-node
+  externalTrafficPolicy: Local
   selector:
     app: pihole
   ports:
