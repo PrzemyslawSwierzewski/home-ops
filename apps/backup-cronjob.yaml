@@ -1,0 +1,245 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: restic-backup-full
+  namespace: backup
+  labels:
+    app: restic-backup
+spec:
+  # Pełny backup co tydzień, niedziela 3:00 AM
+  schedule: "0 3 * * 0"
+  # Śledź maksymalnie 3 ostatnie wykonania
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  # Timeout na job: max 2 godziny
+  activeDeadlineSeconds: 7200
+  jobTemplate:
+    spec:
+      # Timeout dla poda wewnątrz joba
+      backoffLimit: 1
+      template:
+        metadata:
+          labels:
+            app: restic-backup
+            type: full
+        spec:
+          restartPolicy: Never
+          serviceAccountName: restic-backup
+          # Backup ma byc szybki, ale nie krytyczny - low priority
+          priorityClassName: home-default
+          # Node tolerance - może biec na node'ach z taints
+          tolerations:
+            - operator: Exists
+          containers:
+          - name: restic-backup
+            image: restic/restic:0.19.1
+            imagePullPolicy: IfNotPresent
+            env:
+              - name: AZURE_ACCOUNT_NAME
+                valueFrom:
+                  secretKeyRef:
+                    name: azure-backup
+                    key: AZURE_ACCOUNT_NAME
+              - name: AZURE_ACCOUNT_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: azure-backup
+                    key: AZURE_ACCOUNT_KEY
+              - name: RESTIC_REPOSITORY
+                valueFrom:
+                  secretKeyRef:
+                    name: azure-backup
+                    key: RESTIC_REPOSITORY
+              - name: RESTIC_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: azure-backup
+                    key: RESTIC_PASSWORD
+              - name: AZURE_ACCOUNT_NAME
+                valueFrom:
+                  secretKeyRef:
+                    name: azure-backup
+                    key: AZURE_ACCOUNT_NAME
+              - name: TZ
+                value: "Europe/Warsaw"
+            volumeMounts:
+              # Montuj wszystkie PVC do backupowania
+              - mountPath: /backup/homeassistant
+                name: homeassistant-pvc
+              - mountPath: /backup/mosquitto
+                name: mosquitto-pvc
+              - mountPath: /backup/zigbee2mqtt
+                name: zigbee2mqtt-pvc
+              - mountPath: /backup/pihole
+                name: pihole-pvc
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+              limits:
+                memory: 1024Mi
+            command:
+            - /bin/sh
+            - -c
+            - |
+              set -euxo pipefail
+
+              echo "=== Restic Full Backup Start ==="
+              TIMESTAMP=$(date +%Y-%m-%d_%H:%M:%S)
+
+              # Inicjalizuj repo jeśli nie istnieje
+              restic init || true
+
+              # Full backup wszystkich PVC
+              echo "Backupowanie Home Assistant..."
+              restic backup /backup/homeassistant --tag homeassistant --tag full
+
+              echo "Backupowanie Mosquitto..."
+              restic backup /backup/mosquitto --tag mosquitto --tag full
+
+              echo "Backupowanie Zigbee2MQTT..."
+              restic backup /backup/zigbee2mqtt --tag zigbee2mqtt --tag full
+
+              echo "Backupowanie Pi-hole..."
+              restic backup /backup/pihole --tag pihole --tag full
+
+              # Forget policy - zachowaj:
+              # - Ostatnie 4 pełne backupy
+              # - Backupy z ostatnich 30 dni
+              echo "Czyszczenie starych backupów..."
+              restic forget --keep-last 4 --keep-within 30d --prune
+
+              # Stats
+              echo "=== Backup Complete ==="
+              restic snapshots --json | wc -l
+              echo "Snapshots in repository:"
+              restic snapshots
+
+              echo "Repository size:"
+              restic cat config | grep -i size || echo "Size info not available"
+
+          volumes:
+            - name: homeassistant-pvc
+              persistentVolumeClaim:
+                claimName: homeassistant-pvc
+                readOnly: true
+            - name: mosquitto-pvc
+              persistentVolumeClaim:
+                claimName: mosquitto-pvc
+                readOnly: true
+            - name: zigbee2mqtt-pvc
+              persistentVolumeClaim:
+                claimName: zigbee2mqtt-pvc
+                readOnly: true
+            - name: pihole-pvc
+              persistentVolumeClaim:
+                claimName: pihole-pvc
+                readOnly: true
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: restic-backup-incremental
+  namespace: backup
+  labels:
+    app: restic-backup
+spec:
+  # Inkrementalny backup każdego dnia 2:00 AM
+  schedule: "0 2 * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  activeDeadlineSeconds: 3600
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      template:
+        metadata:
+          labels:
+            app: restic-backup
+            type: incremental
+        spec:
+          restartPolicy: Never
+          serviceAccountName: restic-backup
+          priorityClassName: home-default
+          tolerations:
+            - operator: Exists
+          containers:
+          - name: restic-backup
+            image: restic/restic:0.19.1
+            imagePullPolicy: IfNotPresent
+            env:
+              - name: AZURE_ACCOUNT_NAME
+                valueFrom:
+                  secretKeyRef:
+                    name: azure-backup
+                    key: AZURE_ACCOUNT_NAME
+              - name: AZURE_ACCOUNT_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: azure-backup
+                    key: AZURE_ACCOUNT_KEY
+              - name: RESTIC_REPOSITORY
+                valueFrom:
+                  secretKeyRef:
+                    name: azure-backup
+                    key: RESTIC_REPOSITORY
+              - name: RESTIC_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: azure-backup
+                    key: RESTIC_PASSWORD
+              - name: TZ
+                value: "Europe/Warsaw"
+            volumeMounts:
+              - mountPath: /backup/homeassistant
+                name: homeassistant-pvc
+              - mountPath: /backup/mosquitto
+                name: mosquitto-pvc
+              - mountPath: /backup/zigbee2mqtt
+                name: zigbee2mqtt-pvc
+              - mountPath: /backup/pihole
+                name: pihole-pvc
+            resources:
+              requests:
+                cpu: 50m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+            command:
+            - /bin/sh
+            - -c
+            - |
+              set -euxo pipefail
+
+              echo "=== Restic Incremental Backup Start ==="
+
+              # Inkrementalny backup - restic automatycznie deduplicates
+              echo "Backupowanie zmian..."
+              restic backup \
+                /backup/homeassistant \
+                /backup/mosquitto \
+                /backup/zigbee2mqtt \
+                /backup/pihole \
+                --tag incremental \
+                --one-file-system
+
+              echo "=== Incremental Backup Complete ==="
+              restic snapshots --json | wc -l
+
+          volumes:
+            - name: homeassistant-pvc
+              persistentVolumeClaim:
+                claimName: homeassistant-pvc
+                readOnly: true
+            - name: mosquitto-pvc
+              persistentVolumeClaim:
+                claimName: mosquitto-pvc
+                readOnly: true
+            - name: zigbee2mqtt-pvc
+              persistentVolumeClaim:
+                claimName: zigbee2mqtt-pvc
+                readOnly: true
+            - name: pihole-pvc
+              persistentVolumeClaim:
+                claimName: pihole-pvc
+                readOnly: true

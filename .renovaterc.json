@@ -1,0 +1,63 @@
+{
+  "extends": [
+    "config:base",
+    "schedule:weekly"
+  ],
+  "semanticCommits": true,
+  "commitMessagePrefix": "ci(renovate):",
+  "commitMessageTopic": "update {{depType}}",
+  "commitMessageExtra": "from {{currentVersion}} to {{newVersion}}",
+  "prCreation": "not-pending",
+  "prConcurrentLimit": 3,
+  "prConcurrentLimitType": "global",
+  "kubernetes": {
+    "enabled": true,
+    "fileMatch": [
+      "apps/.+\\.yaml$"
+    ]
+  },
+  "dockerfile": {
+    "enabled": true,
+    "fileMatch": [
+      "Dockerfile$"
+    ]
+  },
+  "helm": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "groupName": "home-assistant-ecosystem",
+      "matchPackagePatterns": [
+        "^ghcr\\.io/home-assistant",
+        "koenkk/zigbee2mqtt",
+        "eclipse-mosquitto"
+      ]
+    },
+    {
+      "groupName": "pihole",
+      "matchPackagePatterns": [
+        "pihole/pihole"
+      ]
+    },
+    {
+      "groupName": "utilities",
+      "matchPackagePatterns": [
+        "gethomepage/homepage",
+        "frooodle/s-pdf"
+      ]
+    },
+    {
+      "groupName": "base-images",
+      "matchPackagePatterns": [
+        "^busybox$"
+      ],
+      "extends": [
+        "schedule:monthly"
+      ],
+      "automerge": true,
+      "autoApprove": true
+    }
+  ],
+  "ignoreDeps": []
+}

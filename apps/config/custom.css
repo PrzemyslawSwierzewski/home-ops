@@ -1,0 +1,74 @@
+/* Pogrubienie wszystkich tekstów */
+* {
+  font-weight: 700 !important;
+}
+
+/* Kafelki głównych usług i szukajki (białe z czarną ramką) */
+.service-card, .widget-card, #search {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* 🌸 DUŻA CZARNA RAMKA TYLKO DOOkoła CAŁEJ GRUPY QUICK LINKS 🌸 */
+.bookmark-container, .bookmark-group {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border: 2px solid #000000 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* ❌ USUNIĘCIE OBRĘCZY / RAMKI Z POJEDYNCZYCH LINKÓW (GitHub, YouTube, Google) ❌ */
+.bookmark {
+  border: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Czarny kolor tekstów i ikon w zakładkach */
+.bookmark-container *, .bookmark-group * {
+  color: #000000 !important;
+}
+
+/* 📊 WIDGET STATYSTYK 📊 */
+.widget-container {
+  background-color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 12px !important;
+  padding: 6px 14px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Czarny kolor tekstu i ikonek w statystykach */
+.widget-container,
+.information-widget-resource,
+.information-widget-resource * {
+  color: #000000 !important;
+}
+
+.information-widget-resource svg {
+  color: #000000 !important;
+  stroke: #000000 !important;
+  fill: none !important;
+}
+
+/* Paski zużycia zasobów */
+.resource-usage {
+  background-color: #e5e7eb !important;
+}
+.resource-usage > div {
+  background-color: #000000 !important;
+}
+
+/* Nagłówki sekcji */
+.group-title, h2, h3 {
+  color: #000000 !important;
+  text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #000000;
+  padding: 2px 8px;
+  border-radius: 6px;
+  display: inline-block;
+}

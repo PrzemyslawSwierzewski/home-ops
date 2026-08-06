@@ -1,0 +1,28 @@
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: home-critical
+# Pi-hole obsługuje DNS dla całej sieci domowej.
+# Przy presji pamięciowej na single-node klastrze musi być ostatnim kandydatem do usunięcia.
+# (HA i Z2M mogą czasowo czekać na pamięć, DNS nie może)
+value: 1000
+globalDefault: false
+description: "Krytyczne usługi (Pi-hole DNS) - chronione przed eviction pod presją pamięci"
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: home-important
+# Home Assistant, Zigbee2MQTT, Mosquitto - ważne, ale mogą krótko czekać
+value: 100
+globalDefault: false
+description: "Ważne usługi automatyzacji domu - mają priorytet nad systemem"
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: home-default
+# Hobby narzędzia bez krytycznego znaczenia
+value: 0
+globalDefault: false
+description: "Standardowe usługi - narzędzia utility (Homepage, Stirling-PDF)"

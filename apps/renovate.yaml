@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: renovate-config
+  namespace: renovate
+data:
+  renovate-config.json: |
+    {
+      "extends": [
+        "config:base",
+        "schedule:weekly"
+      ],
+      "semanticCommits": true,
+      "commitMessagePrefix": "ci(renovate):",
+      "kubernetes": {
+        "enabled": true,
+        "fileMatch": [
+          "apps/.*\\.yaml$"
+        ]
+      },
+      "dockerfile": {
+        "enabled": true
+      },
+      "helm": {
+        "enabled": true
+      },
+      "packageRules": [
+        {
+          "groupName": "Home Assistant Ecosystem",
+          "matchPackagePatterns": [
+            "ghcr\\.io/home-assistant/home-assistant",
+            "koenkk/zigbee2mqtt",
+            "eclipse-mosquitto"
+          ]
+        },
+        {
+          "groupName": "Pi-hole",
+          "matchPackagePatterns": [
+            "pihole/pihole"
+          ]
+        },
+        {
+          "groupName": "Utilities",
+          "matchPackagePatterns": [
+            "gethomepage/homepage",
+            "frooodle/s-pdf"
+          ]
+        },
+        {
+          "groupName": "Base Images",
+          "matchPackagePatterns": [
+            "busybox"
+          ],
+          "extends": [
+            "schedule:monthly"
+          ],
+          "automerge": true,
+          "autoApprove": true
+        }
+      ]
+    }

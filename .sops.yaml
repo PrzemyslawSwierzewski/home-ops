@@ -1,0 +1,13 @@
+# SOPS konfiguracja dla age
+# Jak to uruchomić:
+#   1. age-keygen -o ~/.age/keys.txt
+#   2. Ustaw: export SOPS_AGE_RECIPIENTS=$(cat ~/.age/keys.txt | grep "public key" | awk '{print $NF}')
+#   3. sops -e --input-type yaml --output-type yaml secret.yaml
+#
+# Flux będzie deszyfrować ze zmiennej środowiska AGE_KEY
+creation_rules:
+  - path_regex: 'apps/.*-secret\.yaml$'
+    encrypted_regex: '^(data|stringData)$'
+    key_groups:
+      - age:
+          - R4FIZ7P # Change to your age public key

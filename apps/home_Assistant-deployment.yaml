@@ -5,6 +5,9 @@ metadata:
   namespace: home-automation
 spec:
   replicas: 1
+  # PVC jest ReadWriteOnce - RollingUpdate zakleszczyłby się na montowaniu wolumenu
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: homeassistant
@@ -13,9 +16,10 @@ spec:
       labels:
         app: homeassistant
     spec:
+      priorityClassName: home-important
       containers:
       - name: homeassistant
-        image: ghcr.io/home-assistant/home-assistant:stable
+        image: ghcr.io/home-assistant/home-assistant:2026.8.0
         imagePullPolicy: IfNotPresent
         env:
         - name: TZ
@@ -23,6 +27,33 @@ spec:
         ports:
         - containerPort: 8123
           name: http
+        # HA na Raspberry potrafi startować kilka minut, a po aktualizacji
+        # dochodzi migracja bazy recordera - stąd bardzo luźny startupProbe.
+        startupProbe:
+          httpGet:
+            path: /
+            port: http
+          periodSeconds: 10
+          failureThreshold: 60
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          periodSeconds: 20
+          timeoutSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 5
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+          limits:
+            memory: 1536Mi
         volumeMounts:
         - mountPath: /config
           name: homeassistant-storage

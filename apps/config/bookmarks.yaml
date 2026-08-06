@@ -1,0 +1,46 @@
+- Quick Links:
+    - GitHub:
+        - title: GitHub Repos
+          abbr: GH
+          href: https://github.com/PrzemyslawSwierzewski/home-ops/tree/main
+          icon: github.svg
+    - YouTube:
+        - title: YouTube
+          abbr: YT
+          href: https://www.youtube.com/
+          icon: youtube.svg
+    - Google:
+        - title: Wyszukiwarka Google
+          abbr: GG
+          href: https://www.google.com/
+          icon: google.svg
+    - FitGirl:
+        - title: FitGirl Repacks
+          abbr: FG
+          href: https://fitgirl-repacks.site/
+          icon: https://www.google.com/s2/favicons?domain=fitgirl-repacks.site&sz=128
+    - Linkedin:
+        - title: LinkedIn
+          abbr: LI
+          href: https://www.linkedin.com/
+          icon: linkedin.svg
+    - 💸 Arkusz Google Dorotki:
+        - title: Arkusz Google Dorotki 👩🏻‍💻
+          abbr: DOROTKA
+          href: https://docs.google.com/spreadsheets/d/1-UX2R16oNa9jFLVFenW6rgmbNmSpNkTXg4c8X4k03H8/edit?gid=0#gid=0
+          icon: google-sheets.svg
+    - youtube music:
+        - title: YouTube Music
+          abbr: YTM
+          href: https://music.youtube.com/
+          icon: youtube-music.svg
+    - gmail:
+        - title: Gmail
+          abbr: GM
+          href: https://mail.google.com/mail/u/0/#inbox
+          icon: gmail.svg
+    - allegro:
+        - title: Allegro
+          abbr: ALLEGRO
+          href: https://allegro.pl/
+          icon: https://www.google.com/s2/favicons?domain=allegro.pl&sz=128

@@ -5,6 +5,9 @@ metadata:
   namespace: home-automation
 spec:
   replicas: 1
+  # PVC jest ReadWriteOnce - RollingUpdate zakleszczyłby się na montowaniu wolumenu
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: zigbee2mqtt
@@ -13,19 +16,39 @@ spec:
       labels:
         app: zigbee2mqtt
     spec:
+      priorityClassName: home-important
       initContainers:
+      # UWAGA: Zigbee2MQTT dopisuje do configuration.yaml klucz sieci, pan_id
+      # i listę sparowanych urządzeń. Nadpisanie tego pliku = utrata sieci Zigbee.
+      # ConfigMapa służy WYŁĄCZNIE do zasiania pliku przy pierwszym starcie.
       - name: init-config
-        image: busybox:latest
+        image: busybox:1.38.0
         imagePullPolicy: IfNotPresent
-        command: ['sh', '-c', 'cp /tmp/config/configuration.yaml /app/data/configuration.yaml']
+        command:
+        - sh
+        - -c
+        - |
+          set -eu
+          if [ -f /app/data/configuration.yaml ]; then
+            echo "configuration.yaml już istnieje - nie ruszam (zawiera klucz sieci i sparowane urządzenia)"
+          else
+            echo "pierwszy start - kopiuję configuration.yaml z ConfigMapy"
+            cp /tmp/config/configuration.yaml /app/data/configuration.yaml
+          fi
         volumeMounts:
         - name: config-template
           mountPath: /tmp/config
         - name: data
           mountPath: /app/data
+        resources:
+          requests:
+            cpu: 10m
+            memory: 16Mi
+          limits:
+            memory: 32Mi
       containers:
       - name: zigbee2mqtt
-        image: koenkk/zigbee2mqtt:latest
+        image: koenkk/zigbee2mqtt:2.13.0
         imagePullPolicy: IfNotPresent
         env:
         - name: TZ
@@ -35,6 +58,32 @@ spec:
         ports:
         - containerPort: 8080
           name: http
+        # Frontend odpowiada dopiero po nawiązaniu połączenia z koordynatorem
+        startupProbe:
+          httpGet:
+            path: /
+            port: http
+          periodSeconds: 10
+          failureThreshold: 30
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          periodSeconds: 20
+          timeoutSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 5
+        resources:
+          requests:
+            cpu: 50m
+            memory: 128Mi
+          limits:
+            memory: 512Mi
         volumeMounts:
         - mountPath: /app/data
           name: data
