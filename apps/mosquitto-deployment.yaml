@@ -19,7 +19,7 @@ spec:
       priorityClassName: home-important
       containers:
       - name: mosquitto
-        image: eclipse-mosquitto:2.1.2
+        image: eclipse-mosquitto:2.1.2-alpine
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 1883
