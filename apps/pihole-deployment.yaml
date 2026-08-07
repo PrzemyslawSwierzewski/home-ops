@@ -15,7 +15,6 @@ spec:
       labels:
         app: pihole
     spec:
-      # DNS dla całej sieci domowej - musi przetrwać presję pamięciową na node
       priorityClassName: home-critical
       containers:
       - name: pihole
@@ -43,15 +42,15 @@ spec:
         - containerPort: 80
           name: http
           protocol: TCP
-        # Odwzorowanie oficjalnego HEALTHCHECK z obrazu - sprawdza realne
-        # rozwiązywanie nazw, a nie tylko czy proces żyje.
         startupProbe:
           exec:
             command:
             - /bin/sh
             - -c
             - dig -p $(pihole-FTL --config dns.port) +short +norecurse +retry=0 @127.0.0.1 pi.hole
+          initialDelaySeconds: 5
           periodSeconds: 5
+          timeoutSeconds: 5
           failureThreshold: 30
         readinessProbe:
           exec:
