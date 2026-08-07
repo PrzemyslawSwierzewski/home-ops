@@ -1,5 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
 resources:
   # Komponenty Fluxa (domyślne)
   - flux-system/gotk-components.yaml
@@ -39,6 +40,7 @@ resources:
   - homepage-deployment.yaml
   - homepage-service.yaml
   - homepage-ingress.yaml
+  # USUŃ: homepage-configmap.yaml - zastąpiona przez configMapGenerator
 
   # Stirling PDF
   - stirling-pdf-namespace.yaml
@@ -46,16 +48,12 @@ resources:
   - stirling-pdf-service.yaml
   - stirling-pdf-ingress.yaml
 
-  # Backup na Azure
-  - backup-namespace.yaml
-  - backup-serviceaccount.yaml
-  - backup-cronjob.yaml
-  # backup-secret-template.yaml nie jest aplikowana - to template
-  # Gdy będziesz gotów, szyfruj i dodaj do resources
+  # Backup na Azure (włączyć później)
+# - backup-namespace.yaml
+# - backup-serviceaccount.yaml
+# - backup-cronjob.yaml
+# - backup-secret.yaml
 
-# ConfigMap dla homepage będzie generowana z plików (configMapGenerator)
-# zamiast trzymana ręcznie - pozwoli Flux automatycznie wyzwolić rollout
-# przy każdej zmianie konfiguracji
 configMapGenerator:
   - name: homepage-config
     namespace: homepage
@@ -65,17 +63,4 @@ configMapGenerator:
       - config/bookmarks.yaml
       - config/widgets.yaml
       - config/custom.css
-    # Dodaj hash ConfigMapy do nazwy - wymusza rollout poda
     behavior: create
-
-# Uogólniaj zmianę hash ConfigMapy na todas w deploymentach
-# aby urlinkować zmiany konfiguracji do restartów podów
-# (Flux automatycznie robi update na wartości w secretach/configmapach)
-vars:
-  - name: HOMEPAGE_CONFIG_CHECKSUM
-    objref:
-      kind: ConfigMap
-      name: homepage-config
-      apiVersion: v1
-    fieldref:
-      fieldpath: metadata.uid

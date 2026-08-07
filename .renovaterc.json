@@ -43,7 +43,7 @@
     {
       "groupName": "utilities",
       "matchPackagePatterns": [
-        "gethomepage/homepage",
+        "^ghcr\\.io/gethomepage/homepage",
         "frooodle/s-pdf"
       ]
     },

@@ -24,11 +24,24 @@ spec:
         ports:
         - containerPort: 1883
           name: mqtt
+        readinessProbe:
+          tcpSocket:
+            port: mqtt
+          periodSeconds: 10
+          failureThreshold: 2
+          initialDelaySeconds: 5
+        livenessProbe:
+          tcpSocket:
+            port: mqtt
+          periodSeconds: 30
+          failureThreshold: 5
+          initialDelaySeconds: 10
         resources:
           requests:
             cpu: 10m
             memory: 32Mi
           limits:
+            cpu: 200m
             memory: 128Mi
         volumeMounts:
         - mountPath: /mosquitto/data
