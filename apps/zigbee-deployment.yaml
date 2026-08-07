@@ -98,5 +98,5 @@ spec:
           claimName: zigbee2mqtt-pvc
       - name: zigbee-adapter
         hostPath:
-          path: /dev/ttyUSB0
-          type: CharDevice
+          path: /dev/serial/by-id/usb-Itead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_V2_8c676bf57af3ef11b2cdba1b6d9880ab-if00-port0
+          type: File
