@@ -5,7 +5,6 @@ metadata:
   namespace: home-automation
 spec:
   replicas: 1
-  # PVC jest ReadWriteOnce - RollingUpdate zakleszczyłby się na montowaniu wolumenu
   strategy:
     type: Recreate
   selector:
@@ -18,9 +17,6 @@ spec:
     spec:
       priorityClassName: home-important
       initContainers:
-      # UWAGA: Zigbee2MQTT dopisuje do configuration.yaml klucz sieci, pan_id
-      # i listę sparowanych urządzeń. Nadpisanie tego pliku = utrata sieci Zigbee.
-      # ConfigMapa służy WYŁĄCZNIE do zasiania pliku przy pierwszym starcie.
       - name: init-config
         image: busybox:1.38.0
         imagePullPolicy: IfNotPresent
@@ -30,7 +26,7 @@ spec:
         - |
           set -eu
           if [ -f /app/data/configuration.yaml ]; then
-            echo "configuration.yaml już istnieje - nie ruszam (zawiera klucz sieci i sparowane urządzenia)"
+            echo "configuration.yaml już istnieje - nie ruszam"
           else
             echo "pierwszy start - kopiuję configuration.yaml z ConfigMapy"
             cp /tmp/config/configuration.yaml /app/data/configuration.yaml
@@ -59,7 +55,6 @@ spec:
         ports:
         - containerPort: 8080
           name: http
-        # Frontend odpowiada dopiero po nawiązaniu połączenia z koordynatorem
         startupProbe:
           httpGet:
             path: /
@@ -88,8 +83,8 @@ spec:
         volumeMounts:
         - mountPath: /app/data
           name: data
-        - mountPath: /dev/serial/by-id
-          name: zigbee-adapter
+        - mountPath: /dev
+          name: dev-host
       volumes:
       - name: config-template
         configMap:
@@ -97,7 +92,7 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: zigbee2mqtt-pvc
-      - name: zigbee-adapter
+      - name: dev-host
         hostPath:
-          path: /dev/serial/by-id
+          path: /dev
           type: Directory
