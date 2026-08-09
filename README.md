@@ -236,6 +236,10 @@ The Zigbee coordinator is mounted as `/dev/serial/by-id/usb-Itead_Sonoff_...`:
 - **No port forwarding**: All services only accessible via Tailscale VPN
 - **No public internet exposure**: Entire home network isolated
 - **VPN-gated access**: Only devices in your Tailscale network can reach services
+- **HTTPS/TLS**: Tailscale automatically handles certificate generation, termination, and rotation
+  - Each Ingress gets a self-signed cert trusted within the Tailscale network
+  - No cert-manager needed — Tailscale manages all certificate lifecycle
+  - All connections are encrypted end-to-end
 - **Future**: SOPS + age for secret encryption in git repo
 
 ## 📊 Health & Monitoring
@@ -259,7 +263,6 @@ Typical memory consumption with all services running:
 - [ ] **Boot from SSD** (currently using SD card)
 - [ ] **NetworkPolicy** for inter-pod communication controls
 - [ ] **Prometheus + Grafana** for monitoring and visualization
-- [ ] **Cert-manager** for automatic TLS certificate management
 
 ## 📚 Further Reading
 
