@@ -48,6 +48,12 @@
       ]
     },
     {
+      "groupName": "vaultwarden",
+      "matchPackagePatterns": [
+        "^vaultwarden/server"
+      ]
+    },
+    {
       "groupName": "base-images",
       "matchPackagePatterns": [
         "^busybox$"
