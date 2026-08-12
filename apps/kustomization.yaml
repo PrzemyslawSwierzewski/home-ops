@@ -64,3 +64,10 @@ configMapGenerator:
       - config/widgets.yaml
       - config/custom.css
     behavior: create
+
+vaultwarden:
+  - vaultwarden-namespace.yaml
+  - vaultwarden-PVC.yaml
+  - vaultwarden-deployment.yaml
+  - vaultwarden-service.yaml
+  - vaultwarden-ingress.yaml
